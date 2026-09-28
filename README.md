@@ -27,10 +27,10 @@ Episode length is handled by **racing + an adaptive cap**. Everyone first plays 
 Training state auto-saves to IndexedDB and resumes on reload. Named checkpoints can be loaded (an exact restore) or forked (the same population, your current dials, a fresh history).
 
 ## Deploying on Coolify
-The repo includes a `Dockerfile` that serves the static files with nginx on port 80, plus a `/healthz` endpoint.
+The repo includes a `Dockerfile` that serves the static files with nginx on port 8347, plus a `/healthz` endpoint.
 
 1. In Coolify: **New Resource → Public Repository**, and paste `https://github.com/maxrerisi/diamond-climb`.
-2. Branch `main`, **Build Pack: Dockerfile**. **Ports Exposes: `80`**.
+2. Branch `main`, **Build Pack: Dockerfile**. **Ports Exposes: `8347`**.
 3. Optional: under Health Checks, set the path to `/healthz`.
 4. Set your domain and deploy. The game is at `/`, the trainer at `/train.html`.
 
