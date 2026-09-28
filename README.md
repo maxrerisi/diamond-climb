@@ -25,3 +25,13 @@ python3 -m http.server 8765        # then open http://localhost:8765 (play) or /
 Episode length is handled by **racing + an adaptive cap**. Everyone first plays a short budget (1k ticks). Only the best genomes still alive at that point are re-run with 2×, 4×, … budgets, up to the cap. The cap doubles whenever ≥20% of the final stage's episodes run into it. All of these are dials under *Cap & racing*.
 
 Training state auto-saves to IndexedDB and resumes on reload. Named checkpoints can be loaded (an exact restore) or forked (the same population, your current dials, a fresh history).
+
+## Deploying on Coolify
+The repo includes a `Dockerfile` that serves the static files with nginx on port 80, plus a `/healthz` endpoint.
+
+1. In Coolify: **New Resource → Public Repository**, and paste `https://github.com/maxrerisi/diamond-climb`.
+2. Branch `main`, **Build Pack: Dockerfile**. **Ports Exposes: `80`**.
+3. Optional: under Health Checks, set the path to `/healthz`.
+4. Set your domain and deploy. The game is at `/`, the trainer at `/train.html`.
+
+No environment variables or volumes are needed. Training state lives in each visitor's browser (IndexedDB), not on the server.

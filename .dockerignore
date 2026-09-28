@@ -1,0 +1,9 @@
+.git
+.claude
+.vscode
+.DS_Store
+.maxinfo
+README2.md
+node_modules
+bench.js
+evo-check.js
