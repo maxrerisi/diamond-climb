@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diamond Climb · Trainer</title>
+  <link rel="stylesheet" href="train.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <strong>Diamond Climb</strong><span class="sub">neuroevolution trainer</span>
+      <a class="nav" href="index.html">play ↗</a>
+    </div>
+    <div class="runbar">
+      <button id="btnRun" class="primary">Start</button>
+      <button id="btnStep" title="Run exactly one generation">Step</button>
+      <button id="btnReset" title="New random population (history cleared)">Reset</button>
+      <span id="runState" class="state idle">idle</span>
+      <span id="saveState" class="savestate"></span>
+    </div>
+  </header>
+
+  <div id="banner" class="banner" hidden>
+    <span>Architecture / population settings changed. They take effect on a fresh population.</span>
+    <button id="btnApplyArch" class="primary">Apply &amp; reset population</button>
+    <button id="btnRevertArch">Revert</button>
+  </div>
+
+  <main class="layout">
+    <section class="col live">
+      <div class="panel">
+        <div class="panel-h">
+          <h2>Live view</h2>
+          <label class="switch" title="Stop rendering the live simulation (training keeps running)"><input type="checkbox" id="liveToggle"><span>visuals</span></label>
+        </div>
+        <div id="liveBox" class="livebox"><canvas id="liveCanvas" data-fit="parent"></canvas>
+          <div id="liveOff" class="liveoff" hidden>Visuals paused<br><small>training continues in the background</small></div>
+        </div>
+        <div id="liveInfo" class="liveinfo">—</div>
+      </div>
+      <div class="panel">
+        <div class="panel-h"><h2>Champion network</h2><span class="hint">live activations · blue + / red −</span></div>
+        <canvas id="netCanvas" class="netcanvas"></canvas>
+      </div>
+    </section>
+
+    <section class="col center">
+      <div id="tiles" class="tiles"></div>
+      <div class="charts">
+        <div class="card wide"><h3>Learning curve — score per generation</h3><canvas id="chScore"></canvas></div>
+        <div class="card"><h3>Fitness</h3><canvas id="chFit"></canvas></div>
+        <div class="card"><h3>Adaptation — mean σ &amp; diversity</h3><canvas id="chAdapt"></canvas></div>
+        <div class="card"><h3>Cause of episode end</h3><canvas id="chDeath"></canvas></div>
+        <div class="card"><h3>Episode length &amp; taps</h3><canvas id="chEp"></canvas></div>
+        <div class="card"><h3>Throughput</h3><canvas id="chTput"></canvas></div>
+        <div class="card"><h3>Adaptive cap &amp; racing</h3><canvas id="chCap"></canvas></div>
+        <div class="card wide"><h3>Current generation — score distribution</h3><canvas id="chHist"></canvas></div>
+        <div class="card wide"><h3>Champion weights <span class="hint">layers left→right · rows = neurons · last column = bias</span></h3><canvas id="chHeat" class="heat"></canvas></div>
+      </div>
+    </section>
+
+    <aside class="col controls">
+      <div id="controls"></div>
+      <details class="group" open>
+        <summary>Checkpoints</summary>
+        <div class="ckrow">
+          <input id="ckName" type="text" placeholder="checkpoint name (optional)">
+          <button id="btnCkSave" class="primary">Save</button>
+        </div>
+        <div id="ckList" class="cklist"></div>
+        <div class="ckfoot">
+          <button id="btnClearAuto" title="Delete the auto-save record (checkpoints are kept)">Clear autosave</button>
+          <span id="storeNote" class="hint"></span>
+        </div>
+      </details>
+    </aside>
+  </main>
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="engine.js"></script>
+  <script src="nn.js"></script>
+  <script src="evo.js"></script>
+  <script src="render.js"></script>
+  <script src="charts.js"></script>
+  <script src="store.js"></script>
+  <script src="train.js"></script>
+</body>
+</html>
